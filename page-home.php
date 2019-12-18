@@ -22,53 +22,26 @@ get_header();
     </div>
 </section>
 <section id="category-section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-9">
                 <?php echo do_shortcode('[product_categories]'); ?>
-            </div>
-            <aside class="col-12 col-md-3">
-                <?php wp_loginout(get_permalink()); ?>
-                <?php 
-                    if(!is_user_logged_in()) {
-                        $args = array(
-                            'echo' => false,
-                            'label_password' => '',
-                            'label_username' => '',
-                        );
-                        
-                        $form = wp_login_form( $args ); 
-                        
-                        //add the placeholders
-                        $form = str_replace('name="log"', 'name="log" placeholder="Username"', $form);
-                        $form = str_replace('name="pwd"', 'name="pwd" placeholder="Password"', $form);
-                        
-                        echo $form; 
-                    }
-                ?>
-            </aside>
-        </div>
-    </div>
-</section>
-<section id="blog-section">
-    <div class="container">
-        <div class="row">
-            <?php $posts = new WP_Query([
-                'posts_per_page' => 3.
+                <?php $posts = new WP_Query([
+                'posts_per_page' => 3,
             ]);
-             if($posts->have_posts()) :
-                 while($posts->have_posts()) : 
-                     $posts->the_post(); ?>
-                <div class="col-12 col-md-4 mb-5">
-                    <div class="card card-content shadow-lg p-3">
+                    if($posts->have_posts()) :
+                        while($posts->have_posts()) : 
+                            $posts->the_post(); ?>
+                        <div class="card card-content shadow-lg p-1 post-card post-<?php the_ID(); ?>">
                         <h2 class="text-center post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                         <small class="text-center categories">Categories</small>
                         <?php the_category(); ?>
                         <p class="post-excerpt"><?php echo get_the_excerpt(); ?></p>
                         <?php the_tags( null, '' ); ?>
                     </div>
-                </div>
             <?php endwhile; endif; ?>
+            </div>
+            <?php get_template_part('template-parts/content', 'sidebar'); ?>
         </div>
     </div>
 </section>

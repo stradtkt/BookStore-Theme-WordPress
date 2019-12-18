@@ -120,6 +120,7 @@ add_action( 'widgets_init', 'book_store_widgets_init' );
  * Enqueue scripts and styles.
  */
 function book_store_scripts() {
+	wp_enqueue_style( 'bookstore-style', get_stylesheet_uri() );
 	wp_enqueue_style('bootstrap-style', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
 	wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css');
 	wp_enqueue_script('jquery', '//code.jquery.com/jquery-3.4.1.slim.min.js', array('jquery'), '3.4.1', true);
